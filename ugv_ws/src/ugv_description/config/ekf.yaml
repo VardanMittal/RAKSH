@@ -1,0 +1,60 @@
+ekf_filter_node:
+  ros__parameters:
+
+    world_frame: odom
+    odom_frame: odom
+    base_link_frame: base_footprint
+    map_frame: map
+
+    # Use simulation time from Gazebo
+    use_sim_time: true
+
+    # Publish the odom → base_footprint transform
+    publish_tf: true
+
+    # Frequency of EKF output (Hz)
+    frequency: 30.0
+
+    # --- Sensor 0: Wheel Odometry ---
+    odom0: /odom
+    odom0_config: [
+      true,  true,  false,   # x, y, z position
+      false, false, true,    # roll, pitch, yaw
+      true,  true,  false,   # vx, vy, vz
+      false, false, true,    # vroll, vpitch, vyaw
+      false, false, false    # ax, ay, az
+    ]
+    odom0_differential: false
+    odom0_relative: false
+
+    # --- Sensor 1: IMU ---
+    imu0: /imu/data
+    imu0_config: [
+      false, false, false,   # x, y, z  (IMU gives no position)
+      false, false, false,   # roll, pitch, yaw absolute (not reliable from Gz IMU)
+      false, false, false,   # vx, vy, vz
+      true,  true,  true,    # vroll, vpitch, vyaw  (gyroscope)
+      true,  true,  false    # ax, ay, az  (accelerometer, skip z = gravity)
+    ]
+    imu0_differential: false
+    imu0_relative: true
+    imu0_remove_gravitational_acceleration: true
+
+    # Process noise
+    process_noise_covariance: [
+      0.05, 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,
+      0.0,  0.05, 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,
+      0.0,  0.0,  0.06, 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,
+      0.0,  0.0,  0.0,  0.03, 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,
+      0.0,  0.0,  0.0,  0.0,  0.03, 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,
+      0.0,  0.0,  0.0,  0.0,  0.0,  0.06, 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,
+      0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.025,0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,
+      0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.025,0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,
+      0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.04, 0.0,  0.0,  0.0,  0.0,  0.0,  0.0,
+      0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.01, 0.0,  0.0,  0.0,  0.0,  0.0,
+      0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.01, 0.0,  0.0,  0.0,  0.0,
+      0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.02, 0.0,  0.0,  0.0,
+      0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.01, 0.0,  0.0,
+      0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.01, 0.0,
+      0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.0,  0.015
+    ]

@@ -45,7 +45,10 @@ RUN sudo apt update && sudo apt install -y \
   ros-jazzy-cv-bridge \
   ros-jazzy-vision-msgs \
   ros-jazzy-joint-state-publisher-gui \
-  ros-jazzy-xacro
+  ros-jazzy-xacro \
+  ros-jazzy-rtabmap-ros
+
+RUN sudo apt install -y libepoxy-dev libgl1-mesa-dev libglu1-mesa-dev pip
 
 
 RUN echo 'export PATH=$PATH:/opt/ros/jazzy/opt/gz_tools_vendor/bin' >> ~/.bashrc
