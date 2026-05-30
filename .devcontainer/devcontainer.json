@@ -1,7 +1,10 @@
 {
   "name": "jazzy desktop",
   "dockerFile": "Dockerfile",
-  "runArgs": ["--privileged", "--network=host", "--gpus=all"],
+  "runArgs": ["--privileged", "--network=host", "--gpus=all",
+    "-e", "DISPLAY=${localEnv:DISPLAY}",
+    "-e", "XDG_RUNTIME_DIR=/tmp/runtime-ubuntu",
+    "-v", "/tmp/.X11-unix:/tmp/.X11-unix:rw"],
   "workspaceMount": "source=${localWorkspaceFolder},target=/${localWorkspaceFolderBasename},type=bind",
   "workspaceFolder": "/${localWorkspaceFolderBasename}",
   "mounts": [

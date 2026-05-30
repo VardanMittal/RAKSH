@@ -19,7 +19,8 @@ def generate_launch_description():
 
         # Start Gazebo with our farm world
         ExecuteProcess(
-            cmd=['gz', 'sim', '-r', world_file],
+            cmd=['/opt/ros/jazzy/opt/gz_tools_vendor/bin/gz',
+                 'sim', '-r', world_file],
             output='screen'
         ),
 
@@ -43,7 +44,7 @@ def generate_launch_description():
                     package='ros_gz_sim',
                     executable='create',
                     arguments=[
-                        '-world', 'farm',          # <--- CRITICAL FIX
+                        '-world', 'farm',
                         '-name', 'ugv',
                         '-topic', 'robot_description',
                         '-x', '0.0',
@@ -70,8 +71,12 @@ def generate_launch_description():
                         '/imu/data@sensor_msgs/msg/Imu@gz.msgs.IMU',
                         '/camera/left/image_raw@sensor_msgs/msg/Image@gz.msgs.Image',
                         '/camera/right/image_raw@sensor_msgs/msg/Image@gz.msgs.Image',
+                        '/camera/left/camera_info@sensor_msgs/msg/CameraInfo@gz.msgs.CameraInfo',
+                        '/camera/right/camera_info@sensor_msgs/msg/CameraInfo@gz.msgs.CameraInfo',
+                        '/scan@sensor_msgs/msg/LaserScan@gz.msgs.LaserScan',
                         '/clock@rosgraph_msgs/msg/Clock@gz.msgs.Clock',
                         '/tf@tf2_msgs/msg/TFMessage@gz.msgs.Pose_V',
+                        '/tf_static@tf2_msgs/msg/TFMessage@gz.msgs.Pose_V',
                     ]
                 )
             ]
