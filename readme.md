@@ -1,0 +1,1 @@
+rm -f ~/.ros/rtabmap.db
